@@ -62,7 +62,6 @@ app.get("/students/:id", async(req, res) => {
     }
 });
 
-
 app.listen(port, (req, res)=>{
     console.log(`connection is setup at ${port }`)
 })
