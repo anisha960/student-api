@@ -27,7 +27,8 @@ const studentSchema = new mongoose.Schema({
             type : String,
             required : true
         }
-})
+});
+
 
 // we will create a new collection or model
 const Student = new mongoose.model('Student', studentSchema);
