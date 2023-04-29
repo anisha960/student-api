@@ -22,7 +22,7 @@ app.use(express.json())
 // })
 
 
-// second way to create a new student
+// second method to create a new student
 app.post("/students", async(req, res) => {
     const user = new Student(req.body)
     
@@ -34,6 +34,33 @@ app.post("/students", async(req, res) => {
         res.status(400).send(e)
     }
 })
+
+// read the data of register student
+app.get("/students", async(req, res) => {
+    try{
+     const studentsData = await Student.find()
+     res.send(studentsData);
+    }catch(e){
+        res.send(e)
+    }
+})
+
+//get a indivisual student data using id
+app.get("/students/:id", async(req, res) => {
+    try{
+        const _id = req.params.id;
+       const studentData = await Student.findById(_id)
+
+       if(!studentData){
+       return res.status(404).send();
+       }else{
+        res.send(studentData);
+       }
+      
+    }catch(e){
+        res.status(500).send(e)
+    }
+});
 
 
 app.listen(port, (req, res)=>{
