@@ -56,7 +56,34 @@ app.get("/students/:id", async(req, res) => {
        }else{
         res.send(studentData);
        }
-      
+    }catch(e){
+        res.status(500).send(e)
+    }
+});
+
+// Update students by it's id
+app.patch("/students/:id", async(req, res) => {
+    try{
+        const _id = req.params.id;
+        const updateStudents = await Student.findByIdAndUpdate(_id, req.body, {
+            new : true
+        });
+        res.send(updateStudents)
+    }catch(e){
+        res.status(404).send(e)
+    }
+});
+
+// delete the students by it's id
+app.delete("/students/:id", async(req, res) => {
+    try{
+        const studentDelete = await Student.findByIdAndDelete(req.params.id);
+        // console.log(studentDelete)
+        if(!req.params.id){
+            return res.status(400).send()
+        }
+            res.status(400).send(studentDelete)
+       
     }catch(e){
         res.status(500).send(e)
     }
